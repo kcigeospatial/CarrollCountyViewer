@@ -19,7 +19,7 @@ define({
     //Default configuration settings for the application. This is where you'll define things like a bing maps key,
     //default web map, default app color theme and more. These values can be overwritten by template configuration settings and url parameters.
     "appid": "",
-    "webmap": "f5b13dbed07c46cdb783cf361833aa6b",
+    "webmap": "1c81632f19f94af88010c5985f8c5225",
     "oauthappid": null, //"AFTKRmv16wj14N3z",
     //Group templates must support a group url parameter. This will contain the id of the group.
     //group: "",
@@ -42,12 +42,12 @@ define({
     //Theme defines the background color of the title area and tool dialog 
     //Color defines the text color for the title and details. Note that 
     //both these values must be specified as hex colors. 
-    "theme": "#80ab00",
+    "theme": "#3A456E",
     "color": "#fff",
     //Specify the tool icon color for the tools on the toolbar and the menu icon.
     // Valid values are white and black.
     "icons": "white",
-    "logo": null, 
+    "logo": "./images/carroll-logo.bmp", 
     //Set of tools that will be added to the toolbar 
     "tools": [
         {"name": "legend", "enabled": true}, 
@@ -55,6 +55,7 @@ define({
         {"name": "layers", "enabled": true}, 
         {"name": "basemap", "enabled": true}, 
         {"name": "overview", "enabled": true},
+		{"name": "mapparcelsearch", "enabled": true},
         {"name": "measure", "enabled": true}, 
         {"name": "edit", "enabled": true, "toolbar": false}, 
         {"name": "print", "enabled": true, "legend": true, "layouts":false, "format":"pdf"}, 
@@ -91,7 +92,7 @@ define({
             "url": null
         },
         "geocode": [{
-            "url": null
+            "url": location.protocol + "//geodata.md.gov/imap/rest/services/GeocodeServices/MD_CompositeLocatorWithZIPCodeCentroids/GeocodeServer" , name: "Property Address", singleLineFieldName: "SingleLine", placefinding: true
         }]
     }
 });

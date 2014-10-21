@@ -15,10 +15,10 @@ function() {
          url: location.protocol + "//elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
        },
        geocode: [{
-        url: location.protocol + "//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+        url: location.protocol + "//geodata.md.gov/imap/rest/services/GeocodeServices/MD_CompositeLocatorWithZIPCodeCentroids/GeocodeServer" , name: "Address", singleLineFieldName: "SingleLine", placefinding: true
        }]
     },
-    queryForOrg: true
+    queryForOrg: false
 };
   
   // could use a has() test to optionally populate some global

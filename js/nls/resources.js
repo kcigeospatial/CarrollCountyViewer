@@ -57,7 +57,8 @@ define({
         	"time": "Time",
         	"print": "Print",
         	"details": "Details",
-        	"share": "Share"
+        	"share": "Share",
+        	"mapparcelsearch": "Map/Parcel Search"
         }
     }),
 	"ar":1,

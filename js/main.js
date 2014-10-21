@@ -13,8 +13,8 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(["dojo/ready", "dojo/json", "dojo/_base/array", "dojo/_base/Color", "dojo/_base/declare", "dojo/_base/lang", "dojo/dom", "dojo/dom-geometry", "dojo/dom-attr", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-style", "dojo/on", "dojo/Deferred", "dojo/promise/all", "dojo/query", "dijit/registry", "dijit/Menu", "dijit/CheckedMenuItem", "application/toolbar", "application/has-config", "esri/arcgis/utils", "esri/dijit/HomeButton", "esri/dijit/LocateButton", "esri/dijit/Legend", "esri/dijit/BasemapGallery", "esri/dijit/Measurement", "esri/dijit/OverviewMap", "esri/geometry/Extent", "esri/layers/FeatureLayer", "application/TableOfContents", "application/ShareDialog"], function (
-ready, JSON, array, Color, declare, lang, dom, domGeometry, domAttr, domClass, domConstruct, domStyle, on, Deferred, all, query, registry, Menu, CheckedMenuItem, Toolbar, has, arcgisUtils, HomeButton, LocateButton, Legend, BasemapGallery, Measurement, OverviewMap, Extent, FeatureLayer, TableOfContents, ShareDialog) {
+define(["dojo/ready", "dojo/json", "dojo/_base/array", "dojo/_base/Color", "dojo/_base/declare", "dojo/_base/lang", "dojo/dom", "dojo/dom-geometry", "dojo/dom-attr", "dojo/dom-class", "dojo/dom-construct", "dojo/dom-style", "dojo/on", "dojo/Deferred", "dojo/promise/all", "dojo/query", "dijit/registry", "dijit/Menu", "dijit/CheckedMenuItem", "application/toolbar", "application/has-config", "esri/arcgis/utils", "esri/dijit/HomeButton", "esri/dijit/LocateButton", "esri/dijit/Legend", "esri/dijit/BasemapGallery", "esri/dijit/Measurement", "esri/dijit/OverviewMap", "esri/geometry/Extent", "esri/layers/FeatureLayer", "application/TableOfContents", "application/ShareDialog", "application/MapParcelSearch"], function (
+ready, JSON, array, Color, declare, lang, dom, domGeometry, domAttr, domClass, domConstruct, domStyle, on, Deferred, all, query, registry, Menu, CheckedMenuItem, Toolbar, has, arcgisUtils, HomeButton, LocateButton, Legend, BasemapGallery, Measurement, OverviewMap, Extent, FeatureLayer, TableOfContents, ShareDialog, MapParcelSearch) {
 
 
     return declare(null, {
@@ -149,6 +149,9 @@ ready, JSON, array, Color, declare, lang, dom, domGeometry, domAttr, domClass, d
                         break;
                     case "share":
                         toolList.push(this._addShare(this.config.tools[i], toolbar, "medium"));
+                        break;
+					case "mapparcelsearch":
+                        toolList.push(this._addMapParcelSearch(this.config.tools[i], toolbar, "medium"));
                         break;
                     default:
                         break;
@@ -733,6 +736,29 @@ ready, JSON, array, Color, declare, lang, dom, domGeometry, domAttr, domClass, d
 
             return deferred.promise;
 
+        },
+        _addMapParcelSearch: function (tool, toolbar, panelClass) {
+            //*** Add the Carroll County map/parcel search tool.
+            var deferred = new Deferred();
+
+            var layers = this.config.response.itemInfo.itemData.operationalLayers;
+
+            if (layers.length === 0) {
+                deferred.resolve(false);
+            } else {
+                panelClass = "small";
+                var mapparcelDiv = toolbar.createTool(tool, panelClass);
+
+                var mapparcelSearch = new MapParcelSearch({
+                    map: this.map,
+                    layers: layers,
+                    config: this.config
+                }, domConstruct.create("div", {}, mapparcelDiv));
+                mapparcelSearch.startup();
+
+                deferred.resolve(true);
+            }
+            return deferred.promise;
         },
         _getEditableLayers: function (layers) {
             var layerInfos = [];

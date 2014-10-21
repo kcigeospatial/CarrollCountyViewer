@@ -21,7 +21,13 @@
 			<link rel="stylesheet" href="css/ie.css">
 		<![endif]-->
 	</head>
-	<body class="calcite app-loading no-touch">
+	<body onload="disclaimer()" class="calcite app-loading no-touch">
+	  	<script type="text/javascript">
+	    function disclaimer() {
+	     // Disclaimer box
+	        alert("Existing and future land use designations are not regulatory instruments.  Please refer to the current zoning of property for uses allowed in that zoning district.  The comprehensive rezoning of a property will be based on the future land use designation as identified in the 2014 Carroll County Master Plan.");
+	    }
+	    </script>		
 		<!-- Loading Indicator -->
 		<div class="loading-indicator">
 			<div class="loading-message" id="loading_message"></div>

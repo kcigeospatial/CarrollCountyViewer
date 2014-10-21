@@ -368,7 +368,13 @@ declare, Deferred, Geocoder, PopupTemplate, FeatureLayer, Extent, Point, esriLan
                 }
             } else { // Esri geocoder is not primary
                 options.arcgisGeocoder = false;
-                options.geocoders = searchLayers.length ? searchLayers.concat(geocoders) : geocoders;
+                //*** JS 2014/09/22 - edited to place default geocoder first in list
+                //options.geocoders = searchLayers.length ? searchLayers.concat(geocoders) : geocoders;
+                if (geocoders.length > 0) {
+                    geocoders[0].placeholder = "Place or Address";
+                }
+                options.geocoders = searchLayers.length ? geocoders.concat(searchLayers) : geocoders;
+                //*** end edit
             }
 
 
